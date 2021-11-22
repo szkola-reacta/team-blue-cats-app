@@ -1,4 +1,5 @@
 import './App.css';
+import Button from "./components/Button";
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
         <h1>
           The best Memrise Clone in the Universe!
         </h1>
+        <Button/>
       </header>
     </div>
   );
