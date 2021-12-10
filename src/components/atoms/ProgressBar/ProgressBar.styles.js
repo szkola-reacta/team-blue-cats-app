@@ -19,11 +19,10 @@ export const BarDisplay = styled.div`
 export const ProgressDisplay = styled.div(props => ({
     height: '100%',
     borderRadius: '50px',
-    width: `calc(100% / (${props.maxAnswers} - ${props.progress}))`,
+    width: `calc((100% / ${props.maxAnswers}) * ${props.progress})`,
     backgroundColor: props.colorBar
 })) ;
 
 export const LabelStyle = styled.div`
     margin-left: 10px;
 `
-

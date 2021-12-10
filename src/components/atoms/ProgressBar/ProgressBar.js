@@ -22,7 +22,7 @@ ProgressBar.propTypes = {
 }
 
 ProgressBar.defaultProps = {
-    progress: 2,
+    progress: 4,
     maxAnswers: 10,
     barColor: "yellow"
 }
