@@ -1,6 +1,5 @@
 import './App.css';
-import Button from "components/atoms/Button";
-import ProgressBar from './components/atoms/ProgressBar/ProgressBar'
+import Container from './components/Container'
 function App() {
   return (
     <div className="App">
@@ -8,8 +7,7 @@ function App() {
         <h1>
           The best Memrise Clone in the Universe!
         </h1>
-        <Button/>
-        <ProgressBar />
+        <Container />
       </header>
     </div>
   );
