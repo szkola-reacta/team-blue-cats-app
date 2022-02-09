@@ -1,6 +1,6 @@
-function Button() {
+function Button(props) {
     return (
-        <button style={{fontSize: 20}}>
+        <button onClick={props.handleBtnClick} style={{fontSize: 20}}>
             d(^_^)b
         </button>
     );

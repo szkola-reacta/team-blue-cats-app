@@ -19,15 +19,12 @@ function Container() {
     setToggle(!toggle)
   }
 
-  const getRandomIndex = (min=0, max=english.length-1) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    const randomIndex = Math.floor(Math.random() * (max - min + 1)) + min;
-    setIndex(randomIndex);
-    //return randomIndex
+  const getRandomIndex = (min=10, max=(english.length-1)) => {
+    const randomIndex = Math.floor(Math.random() * max)
+    console.log(randomIndex)
+    setIndex(randomIndex)
+    return randomIndex
   }
-
-  console.log(index)
 
   useEffect(() => {
     getData();
@@ -37,7 +34,7 @@ function Container() {
     <>
       <ProgressBar />
       <Card handleClick={toggleCard}>{!toggle ? <p>{english[index].answer}</p> : <p>{english[index].question}</p>}</Card>
-      <Button/>
+      <Button handleBtnClick={getRandomIndex} />
     </>
   );
 }
