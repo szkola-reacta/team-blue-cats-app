@@ -4,15 +4,20 @@ import ProgressBar from './atoms/ProgressBar/ProgressBar'
 import { useEffect, useState } from 'react';
 
 function Container() {
-  const [data, setData] = useState();
+  const [data, setData] = useState({});
+
+  const getData = () => {
+    fetch("data/english.json")
+            .then(res => res.json())
+            .then(myJson => setData(myJson));
+  };
 
   useEffect(() => {
-    fetch('data/english.json')
-      .then(res => res.json())
-      .then(data => setData(data));
-    }, []);
+    getData();
+  }, []);
 
-    console.log(data);
+  console.log(data)
+
     return (
     <>
       <ProgressBar />
