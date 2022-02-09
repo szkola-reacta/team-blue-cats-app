@@ -9,8 +9,8 @@ function Card(props) {
   }
 
   return (
-    <div style={styles}>
-      {props.question}
+    <div onClick={props.handleClick} style={styles}>
+      {props.children}
     </div>
   );
 }
