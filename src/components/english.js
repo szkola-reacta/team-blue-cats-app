@@ -12,10 +12,6 @@ const english = [
       "answer": "a dog"
     },
     {
-      "question": "otrzymać",
-      "answer": "to receive"
-    },
-    {
       "question": "nakładać makijaż",
       "answer": "put your face on"
     },
