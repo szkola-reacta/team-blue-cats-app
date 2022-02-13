@@ -6,37 +6,11 @@ import english from './english';
 
 function Container() {
   const [toggle, setToggle] = useState(false);
-  const [gameStarted, setGameStarted] = useState(true);
+  const [gameStarted, setGameStarted] = useState(false);
   const [index, setIndex] = useState(null);
   const [arrayOfIndexes, setArrayOfIndexes] = useState([]);
   const [wrongAnswers, setWrongAnswers] = useState([]);
   const [goodAnswers, setGoodAnswers] = useState([]);
-
-  const toggleCard = () => {
-    setToggle(!toggle);
-  };
-
-  const startGame = () => {
-    setGameStarted(false);
-    setGoodAnswers([]);
-    setWrongAnswers([]);
-    getRandomIndex();
-  };
-
-  const getRandomIndex = () => {
-    if (arrayOfIndexes.length === 0) {
-      initializeArrayOfIndexes();
-      setGameStarted(true);
-    } else {
-    const randomNumber = Math.floor(Math.random() * arrayOfIndexes.length);
-    const randomFromAvailableIndexes = arrayOfIndexes[randomNumber];
-    setArrayOfIndexes(
-      arrayOfIndexes.filter((val) => val !== randomFromAvailableIndexes)
-    );
-
-    setIndex(randomFromAvailableIndexes);
-  }
-  };
 
   useEffect(() => {
     initializeArrayOfIndexes();
@@ -49,6 +23,27 @@ function Container() {
     setArrayOfIndexes(indexesWithoutCurrent);
   };
 
+  const startGame = () => {
+    setGameStarted(true);
+    setGoodAnswers([]);
+    setWrongAnswers([]);
+    getRandomIndex();
+  };
+
+  const getRandomIndex = () => {
+    if (arrayOfIndexes.length === 0) {
+      initializeArrayOfIndexes();
+      setGameStarted(false);
+    } else {
+      const randomNumber = Math.floor(Math.random() * arrayOfIndexes.length);
+      const randomFromAvailableIndexes = arrayOfIndexes[randomNumber];
+      setArrayOfIndexes(
+        arrayOfIndexes.filter((val) => val !== randomFromAvailableIndexes)
+      );
+      setIndex(randomFromAvailableIndexes);
+    }
+  };
+
   const addToEasy = () => {
     setGoodAnswers([...goodAnswers, index]);
     getRandomIndex();
@@ -59,11 +54,13 @@ function Container() {
     getRandomIndex();
   };
 
+  const toggleCard = () => {
+    setToggle(!toggle);
+  };
+
   return (
     <>
       {gameStarted ? (
-        <Button handleBtnClick={startGame}>Start Game</Button>
-      ) : (
         <>
           <ProgressBar
             progress={english.length - arrayOfIndexes.length}
@@ -81,9 +78,12 @@ function Container() {
             <Button handleBtnClick={addToEasy}>Easy</Button>
             <Button handleBtnClick={addToHard}>Hard</Button>
             {wrongAnswers.length}
-            <div>{`Good indexes: ${goodAnswers}, Wrong indexes: ${wrongAnswers}`}</div>
+            <div>{`Good indexes: ${goodAnswers}`}</div>
+            <div>{`Wrong indexes: ${wrongAnswers}`}</div>
           </div>
         </>
+      ) : (
+        <Button handleBtnClick={startGame}>Start Game</Button>
       )}
     </>
   );
