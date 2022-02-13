@@ -23,15 +23,11 @@ function Container() {
     getRandomIndex();
   };
 
-  const resetGame = () => {
-    initializeArrayOfIndexes();
-    setGameStarted(true);
-  };
-
   const getRandomIndex = () => {
     if (arrayOfIndexes.length === 0) {
       initializeArrayOfIndexes();
-    }
+      setGameStarted(true);
+    } else {
     const randomNumber = Math.floor(Math.random() * arrayOfIndexes.length);
     const randomFromAvailableIndexes = arrayOfIndexes[randomNumber];
     setArrayOfIndexes(
@@ -39,6 +35,7 @@ function Container() {
     );
 
     setIndex(randomFromAvailableIndexes);
+  }
   };
 
   useEffect(() => {
@@ -62,12 +59,11 @@ function Container() {
     getRandomIndex();
   };
 
-  //TODO - karta 12 się nie pokazuje (arrayOfIndexes.length + 1)
   return (
     <>
       {gameStarted ? (
         <Button handleBtnClick={startGame}>Start Game</Button>
-      ) : arrayOfIndexes.length ? (
+      ) : (
         <>
           <ProgressBar
             progress={english.length - arrayOfIndexes.length}
@@ -88,8 +84,6 @@ function Container() {
             <div>{`Good indexes: ${goodAnswers}, Wrong indexes: ${wrongAnswers}`}</div>
           </div>
         </>
-      ) : (
-        resetGame()
       )}
     </>
   );
