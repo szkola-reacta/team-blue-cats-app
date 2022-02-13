@@ -9,6 +9,8 @@ function Container() {
   const [gameStarted, setGameStarted] = useState(true);
   const [index, setIndex] = useState(null);
   const [arrayOfIndexes, setArrayOfIndexes] = useState([]);
+  const [wrongAnswers, setWrongAnswers] = useState([]);
+  const [goodAnswers, setGoodAnswers] = useState([]);
 
   const toggleCard = () => {
     setToggle(!toggle);
@@ -16,17 +18,19 @@ function Container() {
 
   const startGame = () => {
     setGameStarted(false);
+    setGoodAnswers([]);
+    setWrongAnswers([]);
     getRandomIndex();
   };
 
   const resetGame = () => {
-    setData();
+    initializeArrayOfIndexes();
     setGameStarted(true);
   };
 
   const getRandomIndex = () => {
     if (arrayOfIndexes.length === 0) {
-      setData();
+      initializeArrayOfIndexes();
     }
     const randomNumber = Math.floor(Math.random() * arrayOfIndexes.length);
     const randomFromAvailableIndexes = arrayOfIndexes[randomNumber];
@@ -38,24 +42,31 @@ function Container() {
   };
 
   useEffect(() => {
-    setData();
+    initializeArrayOfIndexes();
   }, []);
 
-  const setData = () => {
+  const initializeArrayOfIndexes = () => {
     let indexesWithoutCurrent = Array(english.length)
       .fill(0)
       .map((el, index) => index);
     setArrayOfIndexes(indexesWithoutCurrent);
   };
 
+  const addToEasy = () => {
+    setGoodAnswers([...goodAnswers, index]);
+    getRandomIndex();
+  };
+
+  const addToHard = () => {
+    setWrongAnswers([...wrongAnswers, index]);
+    getRandomIndex();
+  };
+
   //TODO - karta 12 się nie pokazuje (arrayOfIndexes.length + 1)
   return (
     <>
       {gameStarted ? (
-        <>
-          <Card>Start Game</Card>
-          <Button handleBtnClick={startGame} />
-        </>
+        <Button handleBtnClick={startGame}>Start Game</Button>
       ) : arrayOfIndexes.length ? (
         <>
           <ProgressBar
@@ -69,7 +80,13 @@ function Container() {
               <p>{english[index].question}</p>
             )}
           </Card>
-          <Button handleBtnClick={getRandomIndex} />
+          <div>
+            {goodAnswers.length}
+            <Button handleBtnClick={addToEasy}>Easy</Button>
+            <Button handleBtnClick={addToHard}>Hard</Button>
+            {wrongAnswers.length}
+            <div>{`Good indexes: ${goodAnswers}, Wrong indexes: ${wrongAnswers}`}</div>
+          </div>
         </>
       ) : (
         resetGame()
