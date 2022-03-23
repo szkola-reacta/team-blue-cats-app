@@ -1,7 +1,7 @@
-function Button(props) {
+function Button(props, children) {
     return (
         <button onClick={props.handleBtnClick} style={{fontSize: 20}}>
-            d(^_^)b
+          {props.children}
         </button>
     );
 }

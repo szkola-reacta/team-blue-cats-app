@@ -3,9 +3,12 @@ function Card(props) {
   const styles = {
     color: "grey",
     border: "solid 1px white",
-    borderRadius: "20%",
+    backgroundColor: "white",
+    borderRadius: 40,
     padding: 20,
     margin: 30,
+    width: 500,
+    height: 200,
   }
 
   return (
